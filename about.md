@@ -1,11 +1,9 @@
 ---
 layout: page
-title: About
+title: about | jakesen
 permalink: /about/
 ---
 
-This is a simple Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](http://jekyllrb.com/).  Plus, you can find a lot of themes at [jekyllthemes.org](http://jekyllthemes.org/)
+I have been playing with computers for a long time, and working as a professional developer since 2002. I am luckily married to a kick ass wife without whom I would be utterly lost as I try to help raise our three daughters. I love technology, but also simplicity and elegance of design whether found in software or other forms of craftsmanship.
 
-You can find the source code for this theme at: <data data-icon="ei-sc-github"></data>  [jekyll-simple](https://github.com/wild-flame/jekyll-simple)
-
-You can find the source code for Jekyll at <data data-icon="ei-sc-github"></data>  [jekyll](https://github.com/jekyll/jekyll)
+At one time or another I have used Tcl/Tk, Visual Basic, C#, C++, Perl, PHP, JavaScript, ActionScript, Python, Ruby and other various programming languages. I've deployed and managed websites and applications on managed hosting, Amazon Web Services and Heroku using things like Linux, Apache, MySQL and PostgreSQL.
