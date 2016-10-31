@@ -1,178 +1,130 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Your awesome title</title>
-    <description>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+    <title>jakesen</title>
+    <description>A chronicle of my adventures in the cloud, with helpful tips on web development, devops, and life as a programmer.
 </description>
-    <link>http://localhost:4000/jekyll-simple/</link>
-    <atom:link href="http://localhost:4000/jekyll-simple/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 28 Oct 2016 10:27:55 -0500</pubDate>
-    <lastBuildDate>Fri, 28 Oct 2016 10:27:55 -0500</lastBuildDate>
+    <link>http://jakesen.github.io/</link>
+    <atom:link href="http://jakesen.github.io/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Mon, 31 Oct 2016 14:58:16 -0500</pubDate>
+    <lastBuildDate>Mon, 31 Oct 2016 14:58:16 -0500</lastBuildDate>
     <generator>Jekyll v3.3.0</generator>
     
       <item>
-        <title>Styles at a glance</title>
-        <description>&lt;p&gt;Simple is a beautiful but functional jekyll theme. The font-type setting looks really good when writers use CJK mixed with English.&lt;/p&gt;
+        <title>Setting Up an OpsWorks Stack for Prerender</title>
+        <description>&lt;p&gt;&lt;a href=&quot;https://github.com/prerender/prerender&quot;&gt;Prerender&lt;/a&gt; is an open source tool for making &lt;a href=&quot;https://en.wikipedia.org/wiki/Single-page_application&quot;&gt;single page applications&lt;/a&gt; available for search engine indexing. It runs as a &lt;a href=&quot;https://nodejs.org&quot;&gt;Node.js&lt;/a&gt; server that can easily be deployed to &lt;a href=&quot;https://www.heroku.com/home&quot;&gt;Heroku&lt;/a&gt;, which is how we were using it for &lt;a href=&quot;https://www.partcycle.com&quot;&gt;PartCycle.com&lt;/a&gt; before moving to AWS. There is also the option of subscribing to the &lt;a href=&quot;https://prerender.io&quot;&gt;Prerender.io&lt;/a&gt; service and skipping hosting altogether.&lt;/p&gt;
 
-&lt;p&gt;First of all, let’s have a glance at the basic styles: &lt;a href=&quot;http://github.com/wild-flame/jekyll-simple&quot;&gt;link&lt;/a&gt;, &lt;strong&gt;strong&lt;/strong&gt;, &lt;em&gt;italic&lt;/em&gt;, &lt;del&gt;deletion&lt;/del&gt;, &lt;ins&gt;insertion&lt;/ins&gt;.&lt;/p&gt;
+&lt;p&gt;Self-hosting with Heroku would probably be more than adequate for most people using prerender. However, for large e-commerce applications where there might be hundreds of thousands or even millions of items available (and thus unique content URLs), handling the volume of Google bot requests can become quite expensive.&lt;/p&gt;
 
-&lt;!--description--&gt;
-
-&lt;h3 id=&quot;headers&quot;&gt;Headers:&lt;/h3&gt;
-
-&lt;h1 id=&quot;header-1&quot;&gt;Header 1&lt;/h1&gt;
-
-&lt;h2 id=&quot;header-2&quot;&gt;Header 2&lt;/h2&gt;
-
-&lt;h3 id=&quot;header-3&quot;&gt;Header 3&lt;/h3&gt;
-
-&lt;h4 id=&quot;header-4&quot;&gt;Header 4&lt;/h4&gt;
-
-&lt;h5 id=&quot;header-5&quot;&gt;Header 5&lt;/h5&gt;
-
-&lt;h6 id=&quot;header-6&quot;&gt;Header 6&lt;/h6&gt;
-
-&lt;h3 id=&quot;lists&quot;&gt;Lists:&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;list item 1&lt;/li&gt;
-  &lt;li&gt;list item 2&lt;/li&gt;
-  &lt;li&gt;list item 3&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;list item 1&lt;/li&gt;
-  &lt;li&gt;list item 2&lt;/li&gt;
-  &lt;li&gt;list item 3&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3 id=&quot;blockquote&quot;&gt;Blockquote:&lt;/h3&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h3 id=&quot;basscsshttpwwwbasscsscom-colors&quot;&gt;&lt;a href=&quot;http://www.basscss.com/&quot;&gt;BASSCSS&lt;/a&gt; colors:&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;span class=&quot;black&quot;&gt;black&lt;/span&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;span class=&quot;gray&quot;&gt;gray&lt;/span&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;span class=&quot;silver&quot;&gt;silver&lt;/span&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;span class=&quot;white&quot;&gt;white&lt;/span&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;span class=&quot;aqua&quot;&gt;aqua&lt;/span&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;span class=&quot;blue&quot;&gt;blue&lt;/span&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;span class=&quot;navy&quot;&gt;navy&lt;/span&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;span class=&quot;teal&quot;&gt;teal&lt;/span&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;span class=&quot;green&quot;&gt;green&lt;/span&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;span class=&quot;olive&quot;&gt;olive&lt;/span&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;span class=&quot;lime&quot;&gt;lime&lt;/span&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;span class=&quot;yellow&quot;&gt;yellow&lt;/span&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;span class=&quot;orange&quot;&gt;orange&lt;/span&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;span class=&quot;red&quot;&gt;red&lt;/span&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;span class=&quot;fuchsia&quot;&gt;fuchsia&lt;/span&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;span class=&quot;purple&quot;&gt;purple&lt;/span&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;span class=&quot;maroon&quot;&gt;maroon&lt;/span&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;horizontal-rule&quot;&gt;Horizontal rule:&lt;/h3&gt;
-
-&lt;hr /&gt;
-
-&lt;h3 id=&quot;image&quot;&gt;Image:&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&quot;/jekyll-simple/assets/img/image.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;table&quot;&gt;Table:&lt;/h3&gt;
-
-&lt;table&gt;
-	&lt;thead&gt;
-		&lt;tr&gt;
-			&lt;th&gt;Name&lt;/th&gt;
-			&lt;th&gt;Age&lt;/th&gt;
-			&lt;th&gt;Fruit&lt;/th&gt;
-		&lt;/tr&gt;
-	&lt;/thead&gt;
-	&lt;tbody&gt;
-		&lt;tr&gt;
-			&lt;td&gt;Alex&lt;/td&gt;
-			&lt;td&gt;22&lt;/td&gt;
-			&lt;td&gt;Apple&lt;/td&gt;
-		&lt;/tr&gt;
-		&lt;tr&gt;
-			&lt;td&gt;Bran&lt;/td&gt;
-			&lt;td&gt;20&lt;/td&gt;
-			&lt;td&gt;Orange&lt;/td&gt;
-		&lt;/tr&gt;
-		&lt;tr&gt;
-			&lt;td&gt;Mike&lt;/td&gt;
-			&lt;td&gt;21&lt;/td&gt;
-			&lt;td&gt;Waltermelon&lt;/td&gt;
-		&lt;/tr&gt;
-	&lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h3 id=&quot;code-snippet&quot;&gt;Code snippet&lt;/h3&gt;
-
-&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// index.js&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;arr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-
-&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
-	&lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'foo'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-</description>
-        <pubDate>Sun, 03 Jul 2016 00:00:00 -0500</pubDate>
-        <link>http://localhost:4000/jekyll-simple/jekyll/2016/07/03/styles-for-simple.html</link>
-        <guid isPermaLink="true">http://localhost:4000/jekyll-simple/jekyll/2016/07/03/styles-for-simple.html</guid>
-        
-        
-        <category>jekyll</category>
-        
-      </item>
-    
-      <item>
-        <title>Welcome to Jekyll!</title>
-        <description>&lt;p&gt;You’ll find this post in your &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run &lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll serve&lt;/code&gt;, which launches a web server and auto-regenerates your site when a file is updated.&lt;/p&gt;
-
-&lt;p&gt;To add new posts, simply add a file in the &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory that follows the convention &lt;code class=&quot;highlighter-rouge&quot;&gt;YYYY-MM-DD-name-of-post.ext&lt;/code&gt; and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.&lt;/p&gt;
-
-&lt;p&gt;Jekyll also offers powerful support for code snippets:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Hi, &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Tom'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;#=&amp;gt; prints 'Hi, Tom' to STDOUT.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Check out the &lt;a href=&quot;http://jekyllrb.com/docs/home&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;. If you have questions, you can ask them on &lt;a href=&quot;https://talk.jekyllrb.com/&quot;&gt;Jekyll Talk&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Thankfully &lt;a href=&quot;https://aws.amazon.com&quot;&gt;Amazon Web Services&lt;/a&gt; comes to the rescue with their cheap but powerful EC2 instances. Using OpsWorks, it is fairly straightforward and painless to configure a small, scalable prerender cluster that can can handle rendering hundreds of pages per minute at a fraction of the cost of an equivalent Heroku configuration.&lt;/p&gt;
 
 &lt;!--description--&gt;
 
-&lt;p&gt;You’ll find this post in your &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run &lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll serve&lt;/code&gt;, which launches a web server and auto-regenerates your site when a file is updated.&lt;/p&gt;
+&lt;h3 id=&quot;requirements--disclaimers&quot;&gt;Requirements &amp;amp; Disclaimers&lt;/h3&gt;
 
-&lt;p&gt;To add new posts, simply add a file in the &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory that follows the convention &lt;code class=&quot;highlighter-rouge&quot;&gt;YYYY-MM-DD-name-of-post.ext&lt;/code&gt; and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.&lt;/p&gt;
+&lt;p&gt;In order to follow these instructions as described, you will need to have accounts set up for the following services:&lt;/p&gt;
 
-&lt;p&gt;Jekyll also offers powerful support for code snippets:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/&quot;&gt;GitHub&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://aws.amazon.com&quot;&gt;Amazon Web Services&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Hi, &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Tom'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;#=&amp;gt; prints 'Hi, Tom' to STDOUT.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+&lt;p&gt;Also be aware that adding the Elastic Load Balancer and EC2 instance(s) in your AWS account may (and most likely will) subject your account to significant charges if the configuration is left in place for any length of time. Please review AWS pricing to determine if the estimated costs make sense for your application.&lt;/p&gt;
 
-&lt;p&gt;Check out the &lt;a href=&quot;http://jekyllrb.com/docs/home&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;. If you have questions, you can ask them on &lt;a href=&quot;https://talk.jekyllrb.com/&quot;&gt;Jekyll Talk&lt;/a&gt;.&lt;/p&gt;
+&lt;h3 id=&quot;fork-prerender&quot;&gt;Fork prerender&lt;/h3&gt;
 
+&lt;p&gt;You will need to create your own fork of the prerender server so that you can do things like customize the server configuration and add a deploy key. The easiest way to do this is to visit the &lt;a href=&quot;https://github.com/prerender/prerender&quot;&gt;source repository for prerender&lt;/a&gt; and click the &lt;strong&gt;Fork&lt;/strong&gt; button in the upper right corner.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/prerender-opsworks/fork-prerender.jpg&quot; alt=&quot;Fork Prerender&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;hack-the-prerender-app&quot;&gt;Hack the prerender app&lt;/h3&gt;
+
+&lt;p&gt;Once you have your fork, we need to make an adjustment to how prerender handles our requests. Prerender looks at the URL requested to determine the page address that needs to be rendered. For example, &lt;code class=&quot;highlighter-rouge&quot;&gt;http://my-preprender-service.com/https://www.google.com&lt;/code&gt; would tell prerender to return the rendered HTML for &lt;code class=&quot;highlighter-rouge&quot;&gt;https://www.google.com&lt;/code&gt;. If no page address is specified, prerender returns a 404 error.&lt;/p&gt;
+
+&lt;p&gt;Both the AWS Elastic Load Balancer and the OpsWorks Application Layer are going to be performing health checks on the root URL (&lt;code class=&quot;highlighter-rouge&quot;&gt;/&lt;/code&gt;) of the prerender app. If they get 404 responses they will think our prerender instance is not healthy and that will cause problems. We’ll fix that in our fork of prerender by capturing those requests and returning a 200 status with a helpful message.&lt;/p&gt;
+
+&lt;p&gt;The following needs to be added to &lt;code class=&quot;highlighter-rouge&quot;&gt;lib/server.js&lt;/code&gt; just after line 124 in the &lt;code class=&quot;highlighter-rouge&quot;&gt;server.onRequest&lt;/code&gt; function:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;req&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prerender&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;url&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;req&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prerender&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'//'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;length&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;req&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prerender&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;documentHTML&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Incomplete or missing URL!&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;200&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Here is a screenshot of the commit diff:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/prerender-opsworks/fix-health-checks.jpg&quot; alt=&quot;Fix Health Checks&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;You can also make modifications to the root &lt;code class=&quot;highlighter-rouge&quot;&gt;server.js&lt;/code&gt; file to customize your prerender server with things like caching, whitelisting, etc that I won’t go into here. You can read the &lt;a href=&quot;https://github.com/prerender/prerender&quot;&gt;prerender&lt;/a&gt; documentation to learn more about that.&lt;/p&gt;
+
+&lt;h3 id=&quot;add-deploy-key&quot;&gt;Add deploy key&lt;/h3&gt;
+
+&lt;p&gt;Add a deploy key to your prerender repo. If you need to create a key, you can follow &lt;a href=&quot;https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/&quot;&gt;GitHub’s instructions&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/prerender-opsworks/deploy-key-2.jpg&quot; alt=&quot;Add Deploy Key&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;create-a-stack&quot;&gt;Create a Stack&lt;/h3&gt;
+
+&lt;p&gt;Now we can head over to the AWS Management Console and start setting up our OpsWorks stack. First, make sure you have a VPC configured for your load balancer and EC2 instances to live in. A new VPC with the default settings should suffice. Go to the dashboard for the OpsWorks AWS service and click &lt;strong&gt;Add Stack&lt;/strong&gt;. Choose the &lt;strong&gt;Chef 11 stack&lt;/strong&gt; option and fill in the name for the new stack. The other values can be left on their default settings. Click &lt;strong&gt;Add stack&lt;/strong&gt; to continue.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/prerender-opsworks/add-stack-2.jpg&quot; alt=&quot;Add Stack&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Before doing anything else, we’ll go create our load balancer so that it will be ready for association with our OpsWorks Layer. Because we created the stack first, AWS should have automatically created the OpsWorks security group that we’ll need to use with the load balancer.&lt;/p&gt;
+
+&lt;h3 id=&quot;add-a-load-balancer&quot;&gt;Add a load balancer&lt;/h3&gt;
+
+&lt;p&gt;After the stack has been added, go to the AWS dashboard for EC2 and click &lt;strong&gt;Load Balancers&lt;/strong&gt; from the left hand navigation bar. Click &lt;strong&gt;Create Load Balancer&lt;/strong&gt;. Choose the type of load balancer you want. I used the &lt;strong&gt;Classic Load Balancer&lt;/strong&gt;. Give it a name and associate it with your VPC. You will need to do additional configuration if you want prerender to handle HTTPS requests…I only set it up for HTTP.&lt;/p&gt;
+
+&lt;p&gt;The next step is to select security groups for the load balancer. Fortunately, OpsWorks has already created an appropriately configured group for us.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/prerender-opsworks/add-lb-3.jpg&quot; alt=&quot;Configure Security Group&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;From there you can move ahead to the health check configuration. The best values to use here may somewhat depend on your application. If these health checks fail for one of our prerender instances, the load balancer will stop sending traffic to it until it starts passing again. This is important because if your stack has no instances that are passing the health checks your prerender service will not be available! The following health check settings worked well for me:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/prerender-opsworks/add-lb-5.jpg&quot; alt=&quot;Configure Health Checks&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;We don’t really need to worry about adding instances or tags right now, so you can skip through the rest of the steps until you get to the final review step and complete the creation of the load balancer.&lt;/p&gt;
+
+&lt;h3 id=&quot;add-nodejs-layer--instance&quot;&gt;Add Node.js Layer &amp;amp; Instance&lt;/h3&gt;
+
+&lt;p&gt;Now we head back to the OpsWorks stack and add a Layer for managing our prerender instances. Click the &lt;strong&gt;Add Layer&lt;/strong&gt; link and choose the &lt;strong&gt;Node.js App Server&lt;/strong&gt; option and the load balancer you just created.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/prerender-opsworks/add-layer-1.jpg&quot; alt=&quot;Add Node.js Layer&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Once the layer has been added, go ahead and add at least one instance to the layer. The &lt;code class=&quot;highlighter-rouge&quot;&gt;c3.large&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;c4.large&lt;/code&gt; seem to work well, but your mileage may vary.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/prerender-opsworks/add-instance-1.jpg&quot; alt=&quot;Add Instance&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Once the instance has been added, click &lt;strong&gt;Start&lt;/strong&gt; to bring the instance online.&lt;/p&gt;
+
+&lt;h3 id=&quot;add-app-config-to-stack&quot;&gt;Add App config to stack&lt;/h3&gt;
+
+&lt;p&gt;Navigate to the Apps section of the OpsWorks dashboard and click &lt;strong&gt;Add app&lt;/strong&gt;. Enter a name for the app (&lt;code class=&quot;highlighter-rouge&quot;&gt;Prerender&lt;/code&gt;?) and select &lt;code class=&quot;highlighter-rouge&quot;&gt;Node.js&lt;/code&gt; for the type. You will need to enter the ssh link for your prerender forks’s GitHub repo, along with the private key part of your deploy key. Finally, enter the environment variables needed to configure prerender. &lt;code class=&quot;highlighter-rouge&quot;&gt;PRERENDER_NUM_WORKERS&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;PRERENDER_NUM_ITERATIONS&lt;/code&gt; are optional, but very useful for tuning memory and CPU usage on your instances. &lt;code class=&quot;highlighter-rouge&quot;&gt;NODE_HOSTNAME&lt;/code&gt; needs to be set to &lt;code class=&quot;highlighter-rouge&quot;&gt;0.0.0.0&lt;/code&gt; for prerender to work in the OpsWorks Node.js layer.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/prerender-opsworks/add-app-2.jpg&quot; alt=&quot;Add App 1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/prerender-opsworks/add-app-3.jpg&quot; alt=&quot;Add App 2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Once the App has been added, you will need to &lt;strong&gt;Deploy&lt;/strong&gt; it to the instance(s) that were created in the Node.js layer. Once deployment has completed and the load balancer has established that the prerender instance is healthy, you will be ready to prerender some pages!&lt;/p&gt;
+
+&lt;h3 id=&quot;testing&quot;&gt;Testing&lt;/h3&gt;
+
+&lt;p&gt;You can find the URL for your prerender service in the &lt;strong&gt;Layers&lt;/strong&gt; section of the OpsWorks dashboard. If you open the link in your browser, you should see a page with the text &lt;code class=&quot;highlighter-rouge&quot;&gt;Incomplete or missing URL!&lt;/code&gt; (from our hack :-D).&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/prerender-opsworks/testing-0.jpg&quot; alt=&quot;Prerender URL&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Now try adding another address onto the end of the URL, like maybe &lt;code class=&quot;highlighter-rouge&quot;&gt;https://www.google.com/search?q=prerender&lt;/code&gt;. You should see the prerendered page in your browser. If you view the source HTML, you should see that there is no javascript content at all, since prerender is only returning the pre-processed DOM state.&lt;/p&gt;
+
+&lt;h3 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h3&gt;
+
+&lt;p&gt;Prerender and OpsWorks make a great combo and the monthly costs are a super deal if you need to handle a high volume of pages. PartCycle would have spent over $1,000 per month for a Heroku configuration that could handle the same load as our ~$200 per month OpsWorks stack. It did take a little bit of work to figure out how to configure it with Amazon’s Node.js layer, but is was worth the effort and hopefully others can benefit from what I’ve learned.&lt;/p&gt;
 </description>
-        <pubDate>Sun, 19 Jun 2016 08:06:26 -0500</pubDate>
-        <link>http://localhost:4000/jekyll-simple/jekyll/2016/06/19/welcome-to-jekyll.html</link>
-        <guid isPermaLink="true">http://localhost:4000/jekyll-simple/jekyll/2016/06/19/welcome-to-jekyll.html</guid>
+        <pubDate>Mon, 31 Oct 2016 04:49:00 -0500</pubDate>
+        <link>http://jakesen.github.io/aws/2016/10/31/setting-up-an-opsworks-stack-for-prerender.html</link>
+        <guid isPermaLink="true">http://jakesen.github.io/aws/2016/10/31/setting-up-an-opsworks-stack-for-prerender.html</guid>
         
         
-        <category>jekyll</category>
+        <category>aws</category>
         
       </item>
     

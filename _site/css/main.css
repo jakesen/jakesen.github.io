@@ -757,9 +757,9 @@ label > .label-body {
   font-weight: normal; }
 
 /* Lists
-–––––––––––––––––––––––––––––––––––––––––––––––––– 
+––––––––––––––––––––––––––––––––––––––––––––––––––
 ul {
-  list-style: circle inside; 
+  list-style: circle inside;
 }
 ol {
   list-style: decimal inside; }
@@ -809,7 +809,7 @@ td:last-child {
   padding-right: 0; }
 
 /* Spacing
-–––––––––––––––––––––––––––––––––––––––––––––––––– 
+––––––––––––––––––––––––––––––––––––––––––––––––––
 button,
 .button {
   margin-bottom: 1rem; }
@@ -867,11 +867,12 @@ hr {
   display: table;
   clear: both; }
 
-/* Images 
+/* Images
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 img {
   max-width: 100%;
-  vertical-align: middle; }
+  vertical-align: middle;
+  padding: 10px 0 10px 0; }
 
 /* blockquote */
 blockquote {
