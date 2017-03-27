@@ -78,6 +78,53 @@
 
     <article class="post_card post">
       <header class="post_header">
+        <h2 class="post_title"><a href="/python,/testing/2017/03/26/testing-in-python-with-vcrpy.html">Testing in Python with VCR.py</a></h2>
+        <time class="post_date">26 March 2017, Sunday</time>
+      </header>
+      <div class="post_excerpt">
+        <p>
+          
+          <p><a href="https://github.com/kevin1024/vcrpy">VCR.py</a> is a python version of the <a href="https://github.com/vcr/vcr">Ruby VCR library</a>. When testing code that makes HTTP requests, VCR.py can make your tests faster, more reliable and more secure, and in general just make your life a lot easier.</p>
+
+<p>VCR works by recording HTTP requests and responses generated while running tests, and serializing them into a cassette file. Future HTTP requests are intercepted and the recorded reponse is returned withouth ever connecting to the original HTTP host. This means that once the cassette is recorded, the tests can still be executed even if there is no internet connection, or the host is unavailable for some reason.</p>
+
+<p>Another useful feature of VCR is that it can obscure sensitive API tokens and passwords in the cassette, and a real token or password is no longer needed once the cassette has been recorded. This means that developers can run the tests without even having access to a valid token or password!</p>
+
+
+          
+          <a class="read-more" href="/python,/testing/2017/03/26/testing-in-python-with-vcrpy.html"> »  </a>
+        </p>
+      </div>
+      <footer class="post_meta">
+
+
+        
+        <!--
+        
+        <a href="/category/python,">
+          <data data-icon="ei-archive"></data>
+          python,</a>
+        
+        <a href="/category/testing">
+          <data data-icon="ei-archive"></data>
+          testing</a>
+        
+        -->
+
+        <!--
+        
+        -->
+
+        <!--p class="readmore">
+          <a href=""><data data-icon="ei-arrow-right"></data>Read this article  </a>
+        </p-->
+      </footer>
+      <hr/>
+    </article>
+    
+
+    <article class="post_card post">
+      <header class="post_header">
         <h2 class="post_title"><a href="/aws/2016/10/31/setting-up-an-opsworks-stack-for-prerender.html">Setting Up an OpsWorks Stack for Prerender</a></h2>
         <time class="post_date">31 October 2016, Monday</time>
       </header>

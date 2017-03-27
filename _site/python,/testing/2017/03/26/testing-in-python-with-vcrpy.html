@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Testing in Python with VCR.py</title>
+  <meta name="description" content="VCR.py is a python version of the Ruby VCR library. When testing code that makes HTTP requests, VCR.py can make your tests faster, more reliable and more sec...">
+
+  <!-- evil icon -->
+
+  <link rel="stylesheet" href="/assets/evil-icons.min.css">
+  <script src="/assets/evil-icons.min.js"></script>
+
+  <!-- todo: include this into main.css -->
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://jakesen.github.io/python,/testing/2017/03/26/testing-in-python-with-vcrpy.html">
+  <link rel="alternate" type="application/rss+xml" title="jakesen" href="http://jakesen.github.io/feed.xml">
+
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-86653308-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+</head>
+
+  <body>
+    <div class="page-content">
+      <div class="container">
+        <div class="three columns">
+          <header class="site-header">
+
+  <h2 class="logo"><a href="/">jakesen</a></h2>
+
+  <div class="nav">
+    
+    <label for="menu-toggle" class="menu-icon">
+        <!--div data-icon="ei-navicon"></div-->
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+    </label>
+    <input type="checkbox" id="menu-toggle">
+
+    <div class="site-nav">
+      <nav>
+        <ul class="page-link">
+          <li><a href="/">Home</a></li>
+          <li><a href="/archive">Posts</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/feed.xml">RSS</a></li>
+        </ul>
+      </nav>
+    </div>
+
+  </div>
+</header>
+
+        </div>
+
+        <div class="nine columns" style="z-index:100;">
+          <div class="wrapper">
+            <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="artilce_header">
+    <h1 class="artilce_title" itemprop="name headline">Testing in Python with VCR.py</h1>
+    <p class="artilce_meta"><time datetime="2017-03-26T21:05:00-05:00" itemprop="datePublished">Mar 26, 2017</time></p>
+  </header>
+
+  <div class="article-content" itemprop="articleBody">
+    <p><a href="https://github.com/kevin1024/vcrpy">VCR.py</a> is a python version of the <a href="https://github.com/vcr/vcr">Ruby VCR library</a>. When testing code that makes HTTP requests, VCR.py can make your tests faster, more reliable and more secure, and in general just make your life a lot easier.</p>
+
+<p>VCR works by recording HTTP requests and responses generated while running tests, and serializing them into a cassette file. Future HTTP requests are intercepted and the recorded reponse is returned withouth ever connecting to the original HTTP host. This means that once the cassette is recorded, the tests can still be executed even if there is no internet connection, or the host is unavailable for some reason.</p>
+
+<p>Another useful feature of VCR is that it can obscure sensitive API tokens and passwords in the cassette, and a real token or password is no longer needed once the cassette has been recorded. This means that developers can run the tests without even having access to a valid token or password!</p>
+
+<!--description-->
+
+<p>I found a great excuse to try out VCR.py while working on <a href="https://github.com/jakesen/pyhatchbuck">pyhatchbuck</a>, a wrapper library for the <a href="http://www.hatchbuck.com">Hatchbuck</a> API. By using VCR.py, the tests for pyhatchbuck will not require permanent and continuous access to the test API account, nor will they depend on a particular state of data being represented by the API.</p>
+
+<h3 id="demonstration">Demonstration</h3>
+
+<p>To demonstrate how one might use VCR.py in their python tests, I’ll create a little project for accessing the <a href="https://developer.github.com/v3/">GitHub API</a> with an OAuth token. To keep things simple, we’ll just have a class to store the token along with a method to return a list of all the repositories for a GitHub user. You can view all the code in this example in the <a href="https://github.com/jakesen/vcrpy-demo">vcrpy-demo respository</a>.</p>
+
+<p>First a little setup:</p>
+
+<div class="language-sh highlighter-rouge"><pre class="highlight"><code>➜ mkdir vcr-test
+➜ <span class="nb">cd </span>vcr-test
+➜ virtualenv env
+➜ <span class="nb">source </span>env/bin/activate
+<span class="o">(</span>env<span class="o">)</span>➜ pip install nose
+<span class="o">(</span>env<span class="o">)</span>➜ pip install requests
+</code></pre>
+</div>
+
+<p>Now, a python module with some code we want to test: <code class="highlighter-rouge">gitrepos.py</code></p>
+
+<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="k">class</span> <span class="nc">GitRepos</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">oauth_token</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">oauth_token</span> <span class="o">=</span> <span class="n">oauth_token</span>
+
+    <span class="k">def</span> <span class="nf">list_for_user</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">):</span>
+        <span class="n">request_url</span> <span class="o">=</span> <span class="s">"https://api.github.com/users/</span><span class="si">%</span><span class="s">s/repos"</span> <span class="o">%</span> <span class="n">username</span>
+        <span class="n">request_url</span> <span class="o">+=</span> <span class="s">"?access_token="</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">oauth_token</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_url</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">repo</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'name'</span><span class="p">)</span> <span class="k">for</span> <span class="n">repo</span> <span class="ow">in</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">)]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="nb">Exception</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p>And finally, a test for our tiny GitHub lib: <code class="highlighter-rouge">test.py</code></p>
+
+<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">unittest</span>
+<span class="kn">from</span> <span class="nn">gitrepos</span> <span class="kn">import</span> <span class="n">GitRepos</span>
+
+<span class="k">class</span> <span class="nc">GitReposTest</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">test_api_token</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">"GITHUB_API_TOKEN"</span><span class="p">,</span> <span class="s">"ABC123"</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_list_for_user</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">repos</span> <span class="o">=</span> <span class="n">GitRepos</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">test_api_token</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="s">'nwalsdev'</span> <span class="ow">in</span> <span class="n">repos</span><span class="o">.</span><span class="n">list_for_user</span><span class="p">(</span><span class="s">'jakesen'</span><span class="p">))</span>
+</code></pre>
+</div>
+
+<p>As you can see, the test attempts to retrieve the API token from an environment variable. If that’s not available it just uses a dummy token. Of course, if the dummy token is used to make a request to GitHub it will fail and our code will raise an exception. Let’s try it just to see what happens.</p>
+
+<div class="language-sh highlighter-rouge"><pre class="highlight"><code><span class="o">(</span>env<span class="o">)</span>➜ nosetests
+E
+<span class="o">======================================================================</span>
+ERROR: test_list_for_user <span class="o">(</span>test.GitReposTest<span class="o">)</span>
+----------------------------------------------------------------------
+Traceback <span class="o">(</span>most recent call last<span class="o">)</span>:
+  File <span class="s2">"/Users/jacobsenecal/Documents/Jakesen/vcr-tests/test.py"</span>, line 11, <span class="k">in </span>test_list_for_user
+    self.assertTrue<span class="o">(</span><span class="s1">'nwalsdev'</span> <span class="k">in </span>repos.list_for_user<span class="o">(</span><span class="s1">'jakesen'</span><span class="o">))</span>
+  File <span class="s2">"/Users/jacobsenecal/Documents/Jakesen/vcr-tests/gitrepos.py"</span>, line 15, <span class="k">in </span>list_for_user
+    raise Exception<span class="o">(</span>response.content<span class="o">)</span>
+Exception: <span class="o">{</span><span class="s2">"message"</span>:<span class="s2">"Bad credentials"</span>,<span class="s2">"documentation_url"</span>:<span class="s2">"https://developer.github.com/v3"</span><span class="o">}</span>
+-------------------- &gt;&gt; begin captured logging &lt;&lt; --------------------
+requests.packages.urllib3.connectionpool: DEBUG: Starting new HTTPS connection <span class="o">(</span>1<span class="o">)</span>: api.github.com
+requests.packages.urllib3.connectionpool: DEBUG: https://api.github.com:443 <span class="s2">"GET /users/jakesen/repos?access_token=ABC123 HTTP/1.1"</span> 401 83
+--------------------- &gt;&gt; end captured logging &lt;&lt; ---------------------
+
+----------------------------------------------------------------------
+Ran 1 <span class="nb">test </span><span class="k">in </span>0.353s
+
+FAILED <span class="o">(</span><span class="nv">errors</span><span class="o">=</span>1<span class="o">)</span>
+</code></pre>
+</div>
+
+<p>But if I set the environment variable and then run the test we see that everything passes.</p>
+
+<div class="language-sh highlighter-rouge"><pre class="highlight"><code><span class="o">(</span>env<span class="o">)</span>➜  <span class="nb">export </span><span class="nv">GITHUB_API_TOKEN</span><span class="o">=</span>&lt;secret stuff&gt;
+<span class="o">(</span>env<span class="o">)</span>➜  nosetests
+.
+----------------------------------------------------------------------
+Ran 1 <span class="nb">test </span><span class="k">in </span>0.464s
+
+OK
+</code></pre>
+</div>
+
+<p>Now we have a test that depends on a successful HTTP request with a valid API token. That means if the API token changes or is not available in a future test environment this test will fail. It will also fail if for some reason GitHub’s API server is unavailable or the test is run without an internet connection (maybe while working on an airplane or in a mountain cabin). We’ve added all these dependencies to our test even though we just want to check the function of our code: that it structures the request properly and handles the response appropriately. Out intent here is not to test GitHub’s API or a token’s validity!</p>
+
+<h2 id="vcrpy-to-the-rescue">VCR.py to the Rescue!</h2>
+
+<p>Fortunately, it is easy to remove these dependencies and ship our code with reliable, portable test coverage.</p>
+
+<p>First we need to install vcrpy:</p>
+
+<div class="language-sh highlighter-rouge"><pre class="highlight"><code><span class="o">(</span>env<span class="o">)</span>➜  pip install vcrpy
+</code></pre>
+</div>
+
+<p>Then we add the <code class="highlighter-rouge">use_cassette</code> decorator to the test we want to record a cassette for:</p>
+
+<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">unittest</span>
+<span class="kn">import</span> <span class="nn">vcr</span>
+<span class="kn">from</span> <span class="nn">gitrepos</span> <span class="kn">import</span> <span class="n">GitRepos</span>
+
+<span class="k">class</span> <span class="nc">GitReposTest</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">test_api_token</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">"GITHUB_API_TOKEN"</span><span class="p">,</span> <span class="s">"ABC123"</span><span class="p">)</span>
+
+    <span class="nd">@vcr.use_cassette</span><span class="p">(</span>
+        <span class="s">'fixtures/cassettes/test_list_for_user.yml'</span><span class="p">,</span>
+        <span class="n">filter_query_parameters</span><span class="o">=</span><span class="p">[</span><span class="s">'access_token'</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="k">def</span> <span class="nf">test_list_for_user</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">repos</span> <span class="o">=</span> <span class="n">GitRepos</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">test_api_token</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="s">'nwalsdev'</span> <span class="ow">in</span> <span class="n">repos</span><span class="o">.</span><span class="n">list_for_user</span><span class="p">(</span><span class="s">'jakesen'</span><span class="p">))</span>
+</code></pre>
+</div>
+
+<p>Notice how we are designating <code class="highlighter-rouge">access_token</code> as a query parameter that will be filtered. The filtering will ensure that the secret API token does not get recorded in the cassette. That way we can safely commit the cassette with the rest of our code and ship it out, even to a public repository, without fear of our credentials falling into the wrong hands.</p>
+
+<p>Now when we run the nosetests again we’ll see that a cassette file has been created at <code class="highlighter-rouge">fixtures/cassettes/test_list_for_user.yml</code>:</p>
+
+<div class="language-yml highlighter-rouge"><pre class="highlight"><code><span class="s">interactions</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="s">request</span><span class="pi">:</span>
+    <span class="s">body</span><span class="pi">:</span> <span class="s">null</span>
+    <span class="s">headers</span><span class="pi">:</span>
+      <span class="s">Accept</span><span class="pi">:</span> <span class="pi">[</span><span class="s1">'</span><span class="s">*/*'</span><span class="pi">]</span>
+      <span class="s">Accept-Encoding</span><span class="pi">:</span> <span class="pi">[</span><span class="s1">'</span><span class="s">gzip,</span><span class="nv"> </span><span class="s">deflate'</span><span class="pi">]</span>
+      <span class="s">Connection</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">keep-alive</span><span class="pi">]</span>
+      <span class="s">User-Agent</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">python-requests/2.13.0</span><span class="pi">]</span>
+    <span class="s">method</span><span class="pi">:</span> <span class="s">GET</span>
+    <span class="s">uri</span><span class="pi">:</span> <span class="s">https://api.github.com/users/jakesen/repos</span>
+  <span class="s">response</span><span class="pi">:</span>
+    <span class="s">body</span><span class="pi">:</span>
+      <span class="s">string</span><span class="pi">:</span> <span class="kt">!!binary</span> <span class="pi">|</span>
+        <span class="no">H4sIAAAAAAAAA+2dbW/ruJWA/4rgTy02ji05thMBi+5tp0BbTItpb4oFdrEIZJuJdSNLriQnN2Pc</span>
+        <span class="no">/95DShZfRMoyeTLI7NWXmcQhHx69UBafe0j+73EUb0bh4jYIltNgcTVKox0ZhaNos4vTuCjzqCSj</span>
+        <span class="no">===============================================</span>
+        <span class="no">LOTS-MORE-BINARY-LINES-REMOVED-HERE-FOR-BREVITY</span>
+        <span class="no">===============================================</span>
+        <span class="no">woCtxqVO2VyMpTI6gcmKTJf3kG43A4HZd8UuY9R9deY5QE+5eQ7TS3UaIbL4pENmWCFULk1nfk5K</span>
+        <span class="no">stsnMPoeZzCB6SUmr8WE67sJUOoV5CG77M5KmWr2WvyO0vP+79/aTViVm/oAAA==</span>
+    <span class="s">headers</span><span class="pi">:</span>
+      <span class="s">access-control-allow-origin</span><span class="pi">:</span> <span class="pi">[</span><span class="s1">'</span><span class="s">*'</span><span class="pi">]</span>
+      <span class="s">access-control-expose-headers</span><span class="pi">:</span> <span class="pi">[</span><span class="s1">'</span><span class="s">ETag,</span><span class="nv"> </span><span class="s">Link,</span><span class="nv"> </span><span class="s">X-GitHub-OTP,</span><span class="nv"> </span><span class="s">X-RateLimit-Limit,</span>
+          <span class="s">X-RateLimit-Remaining,</span><span class="nv"> </span><span class="s">X-RateLimit-Reset,</span><span class="nv"> </span><span class="s">X-OAuth-Scopes,</span><span class="nv"> </span><span class="s">X-Accepted-OAuth-Scopes,</span>
+          <span class="s">X-Poll-Interval'</span><span class="pi">]</span>
+      <span class="s">cache-control</span><span class="pi">:</span> <span class="pi">[</span><span class="s1">'</span><span class="s">private,</span><span class="nv"> </span><span class="s">max-age=60,</span><span class="nv"> </span><span class="s">s-maxage=60'</span><span class="pi">]</span>
+      <span class="s">content-encoding</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">gzip</span><span class="pi">]</span>
+      <span class="s">content-security-policy</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">default-src 'none'</span><span class="pi">]</span>
+      <span class="s">content-type</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">application/json; charset=utf-8</span><span class="pi">]</span>
+      <span class="s">date</span><span class="pi">:</span> <span class="pi">[</span><span class="s1">'</span><span class="s">Sat,</span><span class="nv"> </span><span class="s">25</span><span class="nv"> </span><span class="s">Mar</span><span class="nv"> </span><span class="s">2017</span><span class="nv"> </span><span class="s">13:28:33</span><span class="nv"> </span><span class="s">GMT'</span><span class="pi">]</span>
+      <span class="s">etag</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">W/"9490d33002f09fb3cc09ccf9f8c76c7f"</span><span class="pi">]</span>
+      <span class="s">server</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">GitHub.com</span><span class="pi">]</span>
+      <span class="s">status</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">200 OK</span><span class="pi">]</span>
+      <span class="s">strict-transport-security</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">max-age=31536000; includeSubdomains; preload</span><span class="pi">]</span>
+      <span class="s">vary</span><span class="pi">:</span> <span class="pi">[</span><span class="s1">'</span><span class="s">Accept,</span><span class="nv"> </span><span class="s">Authorization,</span><span class="nv"> </span><span class="s">Cookie,</span><span class="nv"> </span><span class="s">X-GitHub-OTP'</span><span class="pi">,</span> <span class="nv">Accept-Encoding</span><span class="pi">]</span>
+      <span class="s">x-accepted-oauth-scopes</span><span class="pi">:</span> <span class="pi">[</span><span class="s1">'</span><span class="s">'</span><span class="pi">]</span>
+      <span class="s">x-content-type-options</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">nosniff</span><span class="pi">]</span>
+      <span class="s">x-frame-options</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">deny</span><span class="pi">]</span>
+      <span class="s">x-github-media-type</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">github.v3; format=json</span><span class="pi">]</span>
+      <span class="s">x-github-request-id</span><span class="pi">:</span> <span class="pi">[</span><span class="s1">'</span><span class="s">94E7:3545:28E5E1A:33454DF:58D67081'</span><span class="pi">]</span>
+      <span class="s">x-oauth-scopes</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">repo</span><span class="pi">]</span>
+      <span class="s">x-ratelimit-limit</span><span class="pi">:</span> <span class="pi">[</span><span class="s1">'</span><span class="s">5000'</span><span class="pi">]</span>
+      <span class="s">x-ratelimit-remaining</span><span class="pi">:</span> <span class="pi">[</span><span class="s1">'</span><span class="s">4995'</span><span class="pi">]</span>
+      <span class="s">x-ratelimit-reset</span><span class="pi">:</span> <span class="pi">[</span><span class="s1">'</span><span class="s">1490449232'</span><span class="pi">]</span>
+      <span class="s">x-served-by</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">a6882e5cd2513376cb9481dbcd83f3a2</span><span class="pi">]</span>
+      <span class="s">x-xss-protection</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">1; mode=block</span><span class="pi">]</span>
+<span class="err">    </span><span class="s">status</span><span class="pi">:</span> <span class="pi">{</span><span class="nv">code</span><span class="pi">:</span> <span class="nv">200</span><span class="pi">,</span> <span class="nv">message</span><span class="pi">:</span> <span class="nv">OK</span><span class="pi">}</span>
+<span class="s">version</span><span class="pi">:</span> <span class="s">1</span>
+</code></pre>
+</div>
+
+<p>Another benefit of VCR.py is that it gives us an easy way to inspect the request and response details, all we have to do is look in the cassette!</p>
+
+<p>Now we can get rid of the environment variable and see what happens when we run the test again using just the invalid dummy token:</p>
+
+<div class="language-sh highlighter-rouge"><pre class="highlight"><code><span class="o">(</span>env<span class="o">)</span>➜  <span class="nb">unset </span>GITHUB_API_TOKEN
+<span class="o">(</span>env<span class="o">)</span>➜  nosetests
+.
+----------------------------------------------------------------------
+Ran 1 <span class="nb">test </span><span class="k">in </span>0.214s
+
+OK
+</code></pre>
+</div>
+
+<p>As you can see, the test passed with flying colors, even though it was not using a valid API key. The results would have been exactly the same if the test had been run with no internet connection. This is just a simple example but it demonstrates the power and usefullness of VCR.py.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>After using VCR.py to develop and release software that integrates with API services, I can hardly imagine doing this kind of work in the future without using VCR.py or some similar tool. It provides speed and freedom for the test-driven development process, and security and reliability for sharing code and continuous integration. In short it’s an invaluable tool that every developer should know how to leverage for their projects!</p>
+
+
+  </div>
+
+  <footer class="article-footer">
+
+  <section class="share">
+  <a class="share-link" href="" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+    Twitter
+  </a>
+  <a class="share-link" href="" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+    Facebook
+  </a>
+  <a class="share-link" href="" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530'); return false;">
+    Google+
+  </a> 
+</section>
+
+
+  <hr/>
+
+  <section class="author">
+  <div class="authorimage box" style="background: url(/assets/img/jakesen.jpg)"></div>
+  <div class="authorinfo box">
+    <p>Author | Jacob Senecal</p>
+    <p class="bio">
+      Senior Web Developer at PartCycle Technologies, LLC.
+    </p>
+  </div>
+</section>
+
+
+  </footer>
+
+  
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+    var disqus_shortname  = 'jakesen';
+    var disqus_identifier = '/python,/testing/2017/03/26/testing-in-python-with-vcrpy';
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+
+
+</article>
+
+          </div>
+        </div>
+      </div>
+      <footer class="site-footer">
+  <div class="container">
+    <div class="footer left column one-half">
+      <section class="small-font">
+        Theme <a href="https://github.com/wild-flame/jekyll-simple"> Simple </a> by <a href="http://wildflame.me">wildflame</a>
+        © 2016 
+        Powered by <a href="https://github.com/jekyll/jekyll">jekyll</a>
+      </section>
+    </div>
+
+    <div class="footer right column one-half">
+      <section class="small-font">
+        
+        <a href="https://github.com/jakesen"><span class="icon icon--github"><svg viewBox="0 0 16 16"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg>
+</span></a>
+
+        
+        
+        <a href="https://twitter.com/jakesen"><span class="icon icon--twitter"><svg viewBox="0 0 16 16"><path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/></svg>
+</span></a>
+
+        
+      </section>
+    </div>
+  </div>
+</footer>
+ 
+    </div>
+  </body>
+</html>
