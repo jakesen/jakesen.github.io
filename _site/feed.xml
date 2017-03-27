@@ -6,8 +6,8 @@
 </description>
     <link>http://jakesen.github.io/</link>
     <atom:link href="http://jakesen.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 27 Mar 2017 08:16:43 -0500</pubDate>
-    <lastBuildDate>Mon, 27 Mar 2017 08:16:43 -0500</lastBuildDate>
+    <pubDate>Mon, 27 Mar 2017 08:22:32 -0500</pubDate>
+    <lastBuildDate>Mon, 27 Mar 2017 08:22:32 -0500</lastBuildDate>
     <generator>Jekyll v3.3.0</generator>
     
       <item>
@@ -220,11 +220,11 @@ OK
 
 </description>
         <pubDate>Sun, 26 Mar 2017 21:05:00 -0500</pubDate>
-        <link>http://jakesen.github.io/python,/testing/2017/03/26/testing-in-python-with-vcrpy.html</link>
-        <guid isPermaLink="true">http://jakesen.github.io/python,/testing/2017/03/26/testing-in-python-with-vcrpy.html</guid>
+        <link>http://jakesen.github.io/python/testing/2017/03/26/testing-in-python-with-vcrpy.html</link>
+        <guid isPermaLink="true">http://jakesen.github.io/python/testing/2017/03/26/testing-in-python-with-vcrpy.html</guid>
         
         
-        <category>python,</category>
+        <category>python</category>
         
         <category>testing</category>
         

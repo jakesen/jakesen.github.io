@@ -2,7 +2,7 @@
 layout: post
 title:  "Testing in Python with VCR.py"
 date: 2017-03-27 08:05:00 +0600
-categories: python, testing
+categories: python testing
 ---
 [VCR.py][vcrpy] is a python version of the [Ruby VCR library][vcr]. When testing code that makes HTTP requests, VCR.py can make your tests faster, more reliable and more secure, and in general just make your life a lot easier.
 
